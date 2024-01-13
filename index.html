@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Modal Example</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        #signInForm p,
+        #signUpForm p {
+            margin: 10px;
+        }
+
+        .auth-button {
+            width: 100%;
+        }
+
+        .modal-content {
+            border-radius: 0;
+        }
+
+        .modal-header {
+            background-color: #007bff;
+            color: #fff;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .modal-title {
+            font-size: 18px;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group-addon {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+        }
+
+        .form-control {
+            border-radius: 0;
+        }
+
+        .auth-button {
+            border-radius: 0;
+        }
+
+        .checkbox label {
+            font-weight: normal;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .close {
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        .close:hover {
+            opacity: 1;
+        }
+
+        a {
+            color: #007bff;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#authModal">
+        Open Modal
+    </button>
+    <!-- Your modal HTML -->
+    <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="authModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Sign-in form -->
+                    <form id="signInForm">
+                        <div class="form-group">
+                            <label for="signInEmail">Email address <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input type="email" class="form-control" id="signInEmail"
+                                    placeholder="Enter email address" required>
+                            </div>
+                            <span class="help-block">Please fill out this field.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="signInPassword">Password <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" class="form-control" id="signInPassword" placeholder="Password"
+                                    required>
+                                <span class="input-group-addon input-group-text" id="togglePassword">
+                                    <i class="glyphicon glyphicon-eye-open"
+                                        onclick="togglePasswordVisibility('signInPassword', 'togglePassword')"></i>
+                                </span>
+                            </div>
+                            <span class="help-block">Please fill out this field.</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input class="form-check-input" type="checkbox" id="remember-me">
+                                <label class="form-check-label fs-14 text-clr-purple-light fw-normal ms-2"
+                                    for="remember-me">Remember me</label>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <a href="#">Forgot Password?</a>
+                            </div>
+                            <div class="col-xs-12"><button type="button"
+                                    class="btn btn-primary auth-button">Login</button></div>
+                        </div>
+                        <p class="text-center">
+                            Dont have an account? <a href="#" onclick="showSignUpForm()">Register</a>
+                        </p>
+                    </form>
+
+                    <!-- Sign-up form (initially hidden) -->
+                    <form id="signUpForm" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-collapse-down"></i></span>
+                                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                                    </div>
+                                    <span class="help-block">Please fill out this field.</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-collapse-down"></i></span>
+                                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                                    </div>
+                                    <span class="help-block">Please fill out this field.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-collapse-down"></i></span>
+                                        <input type="text" class="form-control" id="country" placeholder="Country">
+                                    </div>
+                                    <span class="help-block">Please fill out this field.</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                    </div>
+                                    <span class="help-block">Please fill out this field.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="password">Password <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input type="password" class="form-control" id="password"
+                                            placeholder="Password">
+                                        <span class="input-group-addon input-group-text" id="togglePasswordForPassword">
+                                            <i class="glyphicon glyphicon-eye-open"
+                                                onclick="togglePasswordVisibility('password', 'togglePasswordForPassword')"></i>
+                                        </span>
+                                    </div>
+                                    <span class="help-block">Please fill out this field.</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password <span
+                                            class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input type="password" class="form-control" id="confirmPassword"
+                                            placeholder="Confirm Password">
+                                        <span class="input-group-addon input-group-text"
+                                            id="togglePasswordForConfirmPassword">
+                                            <i class="glyphicon glyphicon-eye-open"
+                                                onclick="togglePasswordVisibility('confirmPassword', 'togglePasswordForConfirmPassword')"></i>
+                                        </span>
+                                    </div>
+                                    <span class="help-block">Please fill out this field.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phoneNumber">Phone Number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-collapse-down"></i></span>
+                                        <input type="tel" class="form-control" id="phoneNumber"
+                                            placeholder="Phone Number">
+                                    </div>
+                                    <span class="help-block">Please fill out this field.</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="termsCheckbox">
+                                        I have read and accept the
+                                        <a href="#">
+                                            Cheap
+                                            Flight Booking Portal
+                                        </a>
+                                        terms and conditions
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary auth-button"
+                            onclick="registerUser()">Register</button>
+                        <p class="text-center">Already have an account?
+                            <a href="#" onclick="showSignInForm()">Login</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle password visibility
+        function togglePasswordVisibility(inputId, toggleIconId) {
+            var passwordInput = $("#" + inputId);
+            var toggleIcon = $("#" + toggleIconId + " i");
+
+            if (passwordInput.attr("type") === "password") {
+                passwordInput.attr("type", "text");
+                toggleIcon.removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+            } else {
+                passwordInput.attr("type", "password");
+                toggleIcon.removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+            }
+        }
+
+        // Function to show sign-up form
+        function showSignUpForm() {
+            $('#signInForm').hide();
+            $('#signUpForm').show();
+            $('.modal-title').text('Register in to Cheap Flight Booking Portal');
+        }
+
+        // Function to show sign-in form
+        function showSignInForm() {
+            $('#signUpForm').hide();
+            $('#signInForm').show();
+            $('.modal-title').text('Log in to Cheap Flight Booking Portal');
+        }
+
+        // Show the sign-in form by default
+        $(document).ready(function () {
+            showSignInForm();
+        });
+
+    </script>
+
+</body>
+
+</html>
